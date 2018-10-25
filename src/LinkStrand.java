@@ -67,7 +67,7 @@ public class LinkStrand implements IDnaStrand {
 
   @Override
   public IDnaStrand reverse() {
-    // This first part makes a deep copy of the original IDnaStrand with the info reversed in each node
+
     LinkStrand rev = new LinkStrand();
     Node copyOriginal = this.myFirst;
 
@@ -76,17 +76,20 @@ public class LinkStrand implements IDnaStrand {
     rev.myFirst = new Node(firstNodeInfo.toString());
     Node copyRev = rev.myFirst;
 
-    while (copyOriginal.next != null) {
-      StringBuilder revNodeInfo = new StringBuilder(copyOriginal.next.info);
-      revNodeInfo.reverse();
-      copyRev.next = new Node(revNodeInfo.toString());
-      copyRev = copyRev.next;
-      copyOriginal = copyOriginal.next;
-    }
     rev.myLast = copyRev;
 
-    // We reverse the copy of the original IDnaStrand, giving the reverse
     if (rev.myFirst.next != null) {
+
+      // This first part makes a deep copy of the original IDnaStrand with the info reversed in each node
+      while (copyOriginal.next != null) {
+        StringBuilder revNodeInfo = new StringBuilder(copyOriginal.next.info);
+        revNodeInfo.reverse();
+        copyRev.next = new Node(revNodeInfo.toString());
+        copyRev = copyRev.next;
+        copyOriginal = copyOriginal.next;
+      }
+
+      // We reverse the copy of the original IDnaStrand, giving the reverse
       Node prev = null;
       Node current = rev.myFirst;
       Node next = null;
