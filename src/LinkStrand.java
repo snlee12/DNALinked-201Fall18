@@ -79,7 +79,8 @@ public class LinkStrand implements IDnaStrand {
 
     rev.myLast = copyRev;
 
-    if (rev.myFirst.next != null) {
+    // Only goes here if there are more than 1 node
+    if (copyOriginal.next != null) {
 
       // This first part makes a deep copy of the original IDnaStrand with the info reversed in each node
       while (copyOriginal.next != null) {
