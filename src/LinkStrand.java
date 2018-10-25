@@ -113,7 +113,7 @@ public class LinkStrand implements IDnaStrand {
   }
 
   @Override
-  public char charAt(int index) {
+  public char charAt(int index) throws IndexOutOfBoundsException {
 
     if (index > this.toString().length() - 1) {
       throw new IndexOutOfBoundsException("index PARAMATER IS OUT OF BOUNDS!!!");
