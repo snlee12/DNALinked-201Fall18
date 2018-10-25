@@ -24,6 +24,7 @@ public class LinkStrand implements IDnaStrand {
     initialize(s);
   }
 
+  // Initializes the LinkStrand from a given parameter source
   @Override
   public void initialize(String source) {
     myFirst = new Node(source);
@@ -35,16 +36,20 @@ public class LinkStrand implements IDnaStrand {
     myCurrent = myFirst;
   }
 
+  // Returns the current size of the LinkStrand
   @Override
   public long size() {
     return mySize;
   }
 
+  // Returns an instance of LinkStrand using source as the parameter
   @Override
   public IDnaStrand getInstance(String source) {
     return new LinkStrand(source);
   }
 
+  // Appends String parameter dna to the LinkStrand
+  // The new dna becomes a new Node that is linked to the previous node
   @Override
   public IDnaStrand append(String dna) {
     myLast.next = new Node(dna);
@@ -54,6 +59,7 @@ public class LinkStrand implements IDnaStrand {
     return this;
   }
 
+  // Returns a string representation of this LinkStrand
   @Override
   public String toString() {
     StringBuilder myInfo = new StringBuilder();
@@ -65,6 +71,7 @@ public class LinkStrand implements IDnaStrand {
     return myInfo.toString();
   }
 
+  // Returns a new LinkStrand that is the reverse of this LinkStrand
   @Override
   public IDnaStrand reverse() {
 
@@ -107,11 +114,13 @@ public class LinkStrand implements IDnaStrand {
     return rev;
   }
 
+  // Returns the number of times .append() has been called
   @Override
   public int getAppendCount() {
     return myAppends;
   }
 
+  // Returns the character at the given parameter index in the LinkStrand
   @Override
   public char charAt(int index) throws IndexOutOfBoundsException {
 
