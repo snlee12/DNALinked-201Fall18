@@ -125,6 +125,7 @@ public class LinkStrand implements IDnaStrand {
     if(index < myIndex) {
       count = 0;
       myCurrent = myFirst;
+      myLocalIndex = 0;
       }
     // this simply uses current stuff if index is greater than or equal to the one saved
     else {
