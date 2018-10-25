@@ -69,6 +69,7 @@ public class LinkStrand implements IDnaStrand {
   public IDnaStrand reverse() {
 
     LinkStrand rev = new LinkStrand();
+    rev.mySize = this.mySize;
     Node copyOriginal = this.myFirst;
 
     StringBuilder firstNodeInfo = new StringBuilder(copyOriginal.info);
