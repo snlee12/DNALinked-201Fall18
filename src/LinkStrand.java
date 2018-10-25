@@ -60,7 +60,7 @@ public class LinkStrand implements IDnaStrand {
     Node copy = myFirst;
     while (copy != null) {
       myInfo.append(copy.info);
-      myFirst = copy.next;
+      copy = copy.next;
     }
     return myInfo.toString();
   }
@@ -105,11 +105,18 @@ public class LinkStrand implements IDnaStrand {
   @Override
   public char charAt(int index) {
 
+    if (index > this.toString().length() - 1) {
+      throw new IndexOutOfBoundsException("index PARAMATER IS OUT OF BOUNDS!!!");
+    }
+
+    int count;
+
     if(index < myIndex) {
-      int count = 0;
+      count = 0;
       }
     else {
-      int count = myIndex;
+      count = myIndex;
+      myCurrent = myFirst;
       }
     while (count != index) {
       count++;
