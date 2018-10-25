@@ -1,9 +1,136 @@
-Your Name here
-Your NetID here
-Your Partner's name here (or erase)
-Your Partner's NetID here (or erase)
+Siyun Lee
+ssl36
 
 Questions here will come from the assignment
 writeup. Be sure to copy paste questions and 
 your explanations before you push to GitHub and
 do that before uploading to Gradescope
+
+Question 1: are the benchmark timings for StringStrand consistent with the explanation below
+that the time to execute cutAndSplice is O(b2S)? 
+
+dna length = 4,639,221
+cutting at enzyme gaattc
+-----
+Class                   splicee       recomb    time    appends
+-----
+StringStrand:               256       4,800,471 0.555   1290
+StringStrand:               512       4,965,591 0.569   1290
+StringStrand:             1,024       5,295,831 0.576   1290
+StringStrand:             2,048       5,956,311 0.641   1290
+StringStrand:             4,096       7,277,271 0.841   1290
+StringStrand:             8,192       9,919,191 1.264   1290
+StringStrand:            16,384      15,203,031 2.062   1290
+StringStrand:            32,768      25,770,711 3.755   1290
+StringStrand:            65,536      46,906,071 7.041   1290
+StringStrand:           131,072      89,176,791 14.160  1290
+StringStrand:           262,144     173,718,231 37.068  1290
+StringStrand:           524,288     342,801,111 65.742  1290
+StringStrand:         1,048,576     680,966,871 124.485 1290
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at java.base/jdk.internal.misc.Unsafe.allocateUninitializedArray(Unknown Source)
+        at java.base/java.lang.invoke.StringConcatFactory$MethodHandleInlineCopyStrategy.newArray(Unknown Source)
+        at java.base/java.lang.invoke.DirectMethodHandle$Holder.invokeStatic(Unknown Source)
+        at java.base/java.lang.invoke.LambdaForm$MH/1134612201.invoke(LambdaForm$MH)
+        at java.base/java.lang.invoke.LambdaForm$MH/589446616.linkToTargetMethod(LambdaForm$MH)
+        at StringStrand.append(StringStrand.java:70)
+        at IDnaStrand.cutAndSplice(IDnaStrand.java:37)
+        at DNABenchmark.lambda$strandSpliceBenchmark$0(DNABenchmark.java:76)
+        at DNABenchmark$$Lambda$141/2005169944.run(Unknown Source)
+        at java.base/java.lang.Thread.run(Unknown Source)
+        at DNABenchmark.strandSpliceBenchmark(DNABenchmark.java:79)
+        at DNABenchmark.main(DNABenchmark.java:113)
+
+
+Yes, the benchmark timings are consistent with O(b2s), as the time is directly proportional to the
+length of the splicee and b^2 is being kept constant (because b is constant) in this 
+benchmark test. This pattern is especially clear as the over times are huge, allowing the 
+pattern to be more conspicuous. 
+
+
+Question 2: are the benchmark timings for StringBuilderStrand consistent with the explanation 
+below that the time to execute cutAndSplice is O(bS)? 
+
+dna length = 4,639,221
+cutting at enzyme gaattc
+-----
+Class                   splicee       recomb    time    appends
+-----
+StringBuilderStrand:                256       4,800,471 0.043   1290
+StringBuilderStrand:                512       4,965,591 0.026   1290
+StringBuilderStrand:              1,024       5,295,831 0.009   1290
+StringBuilderStrand:              2,048       5,956,311 0.006   1290
+StringBuilderStrand:              4,096       7,277,271 0.006   1290
+StringBuilderStrand:              8,192       9,919,191 0.007   1290
+StringBuilderStrand:             16,384      15,203,031 0.019   1290
+StringBuilderStrand:             32,768      25,770,711 0.042   1290
+StringBuilderStrand:             65,536      46,906,071 0.047   1290
+StringBuilderStrand:            131,072      89,176,791 0.125   1290
+StringBuilderStrand:            262,144     173,718,231 0.133   1290
+StringBuilderStrand:            524,288     342,801,111 0.415   1290
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at java.base/java.util.Arrays.copyOf(Unknown Source)
+        at java.base/java.lang.AbstractStringBuilder.ensureCapacityInternal(Unknown Source)
+        at java.base/java.lang.AbstractStringBuilder.append(Unknown Source)
+        at java.base/java.lang.StringBuilder.append(Unknown Source)
+        at StringBuilderStrand.append(StringBuilderStrand.java:70)
+        at IDnaStrand.cutAndSplice(IDnaStrand.java:41)
+        at DNABenchmark.lambda$strandSpliceBenchmark$0(DNABenchmark.java:76)
+        at DNABenchmark$$Lambda$141/2005169944.run(Unknown Source)
+        at java.base/java.lang.Thread.run(Unknown Source)
+        at DNABenchmark.strandSpliceBenchmark(DNABenchmark.java:79)
+        at DNABenchmark.main(DNABenchmark.java:113)
+
+
+Yes, the benchmark timings are consistent with O(bs), as the time is roughly proportional to the
+length of the splicee and b is being kept constant in this benchmark test. However, because 
+the times in general are so much shorter compared to the StringStrand, there is much more 
+variation in the times. 
+
+
+Question 3: Explain why the time for LinkStrand does not change much at all over all the runs 
+in the benchmark program. Explain why you think memory is exhausted at the specific strand 
+size you see in your timings -- as compared to exhaustion for String and StringBuilder.
+
+dna length = 4,639,221
+cutting at enzyme gaattc
+-----
+Class                   splicee       recomb    time    appends
+-----
+LinkStrand:                 256       4,800,471 0.043   1290
+LinkStrand:                 512       4,965,591 0.048   1290
+LinkStrand:               1,024       5,295,831 0.012   1290
+LinkStrand:               2,048       5,956,311 0.007   1290
+LinkStrand:               4,096       7,277,271 0.006   1290
+LinkStrand:               8,192       9,919,191 0.004   1290
+LinkStrand:              16,384      15,203,031 0.004   1290
+LinkStrand:              32,768      25,770,711 0.010   1290
+LinkStrand:              65,536      46,906,071 0.006   1290
+LinkStrand:             131,072      89,176,791 0.006   1290
+LinkStrand:             262,144     173,718,231 0.010   1290
+LinkStrand:             524,288     342,801,111 0.005   1290
+LinkStrand:           1,048,576     680,966,871 0.005   1290
+LinkStrand:           2,097,152   1,357,298,391 0.012   1290
+LinkStrand:           4,194,304   2,709,961,431 0.005   1290
+LinkStrand:           8,388,608   5,415,287,511 0.013   1290
+LinkStrand:          16,777,216  10,825,939,671 0.008   1290
+LinkStrand:          33,554,432  21,647,243,991 0.006   1290
+LinkStrand:          67,108,864  43,289,852,631 0.009   1290
+LinkStrand:         134,217,728  86,575,069,911 0.008   1290
+LinkStrand:         268,435,456 173,145,504,471 0.006   1290
+LinkStrand:         536,870,912 346,286,373,591 0.008   1290
+LinkStrand:       1,073,741,824 692,568,111,831 0.009   1290
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at java.base/java.util.Arrays.copyOf(Unknown Source)
+        at java.base/java.lang.AbstractStringBuilder.ensureCapacityInternal(Unknown Source)
+        at java.base/java.lang.AbstractStringBuilder.append(Unknown Source)
+        at java.base/java.lang.StringBuilder.append(Unknown Source)
+        at DNABenchmark.main(DNABenchmark.java:110)
+
+
+LinkStrand runs independent of the splice length, as it uses LinkedLists. As a result, the
+benchmark times appear to be constant time with respect to the splice length. The memory
+exhaustionin LinkStrand is probably due to it being the last possible splicee length before
+Java runs out of memory. Java is 32 bit, so the maximum length this can be is 2^31-1, thus
+the memory runs out. However, for String and Stringbuilder, the memory runs out earlier, as
+the String and Stringbuilder objects they create take up much more memory than LinkedLists.

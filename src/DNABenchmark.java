@@ -4,12 +4,12 @@ import java.util.*;
 /**
  * Code for benchmarking the time taken to simulate cutting
  * and splicing strands of DNA. These benchmark methods are
- * intended to be used in reasoning about tradeoffs in using 
+ * intended to be used in reasoning about tradeoffs in using
  * a linked list to represent a strand of DNA and to compare
  * this representation with a simple String representation.
  * @author Owen Astrachan
  * @date 2/11/2009
- * 
+ *
  * Update: System.nanoTime, Repeated and threaded tests.
  * @contributor Brian Lavallee
  * @date 10 March 2016
@@ -18,25 +18,25 @@ import java.util.*;
 import javax.swing.JFileChooser;
 
 public class DNABenchmark {
-	
+
 	/*
 	 * Change these to change the tests to
 	 * use a different type
 	 */
-//	private static final String strandType = "StringStrand";
-//	private static final String strandType = "LinkStrand";
-	private static final String strandType = "StringBuilderStrand";
-	
+	private static final String strandType = "StringStrand";
+	//private static final String strandType = "LinkStrand";
+	//private static final String strandType = "StringBuilderStrand";
+
 	private static final String ENZYME = "gaattc";
 	private static final int TRIALS = 2;
-	
+
 	private static String mySource;
 
 	/**
 	 * Return a string representing the DNA read from the scanner, ignoring any
 	 * characters can't be part of DNA and converting all characters to lower
 	 * case.
-	 * 
+	 *
 	 * @param s is the Scanner read from
 	 * @return a string representing the DNA read, characters in the returned
 	 *         string are restricted to 'c', 'g', 't', 'a'
@@ -54,7 +54,7 @@ public class DNABenchmark {
 		}
 		return buf.toString();
 	}
- 
+
 	public static String strandSpliceBenchmark(String enzyme, String splicee, String className)
 			throws Exception {
 

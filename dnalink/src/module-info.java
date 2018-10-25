@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author snlee
- *
- */
-module dnalink {
-}
